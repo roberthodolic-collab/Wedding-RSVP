@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -13,70 +12,69 @@
       text-align: center;
     }
 
-```
-header {
-  background: linear-gradient(rgba(62,47,35,0.6), rgba(62,47,35,0.6)),
-              url('https://images.unsplash.com/photo-1506744038136-46273834b3fb');
-  background-size: cover;
-  background-position: center;
-  color: white;
-  padding: 100px 20px;
-}
+    header {
+      background: linear-gradient(rgba(62,47,35,0.6), rgba(62,47,35,0.6)),
+                  url('https://images.unsplash.com/photo-1506744038136-46273834b3fb');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      padding: 100px 20px;
+    }
 
-h1 {
-  font-size: 48px;
-  margin-bottom: 10px;
-  letter-spacing: 2px;
-}
+    h1 {
+      font-size: 48px;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+    }
 
-section {
-  padding: 40px 20px;
-}
+    section {
+      padding: 40px 20px;
+    }
 
-.btn {
-  background: #8b5e3c;
-  color: white;
-  padding: 12px 24px;
-  text-decoration: none;
-  border-radius: 30px;
-  display: inline-block;
-  margin-top: 15px;
-}
+    .btn {
+      background: #8b5e3c;
+      color: white;
+      padding: 12px 24px;
+      text-decoration: none;
+      border-radius: 30px;
+      display: inline-block;
+      margin-top: 15px;
+      border: none;
+      cursor: pointer;
+    }
 
-input, select {
-  padding: 10px;
-  margin: 8px;
-  width: 260px;
-  border-radius: 6px;
-  border: 1px solid #cbb8a4;
-}
+    input, select {
+      padding: 10px;
+      margin: 8px;
+      width: 260px;
+      border-radius: 6px;
+      border: 1px solid #cbb8a4;
+    }
 
-.deadline {
-  font-style: italic;
-  color: #7a6a5a;
-}
+    .deadline {
+      font-style: italic;
+      color: #7a6a5a;
+    }
 
-#countdown {
-  margin-top: 20px;
-  font-size: 22px;
-  font-weight: bold;
-}
+    #countdown {
+      margin-top: 20px;
+      font-size: 22px;
+      font-weight: bold;
+    }
 
-.timeline p {
-  background: #fffaf5;
-  padding: 12px;
-  border-radius: 8px;
-  margin: 8px auto;
-  max-width: 400px;
-  border-left: 4px solid #8b5e3c;
-  text-align: left;
-}
+    .timeline p {
+      background: #fffaf5;
+      padding: 12px;
+      border-radius: 8px;
+      margin: 8px auto;
+      max-width: 400px;
+      border-left: 4px solid #8b5e3c;
+      text-align: left;
+    }
 
-iframe {
-  border-radius: 10px;
-}
-```
-
+    iframe {
+      border-radius: 10px;
+    }
   </style>
 </head>
 
@@ -111,7 +109,7 @@ iframe {
     Get Directions
   </a>
 
-<br><br>
+  <br><br>
 
   <iframe
     src="https://www.google.com/maps?q=Barn+%26+Co+Balnarring&output=embed"
@@ -124,14 +122,17 @@ iframe {
   <h2>RSVP</h2>
   <p class="deadline">Please RSVP by 20th August 2026</p>
 
-  <form onsubmit="submitRSVP(event)">
-    <input type="text" placeholder="Your Name" required><br>
-    <select required>
+  <form id="rsvpForm">
+    <input id="name" type="text" placeholder="Your Name" required><br>
+    
+    <select id="attending" required>
       <option value="">Will you attend?</option>
       <option>Joyfully Accept</option>
       <option>Regretfully Decline</option>
     </select><br>
-    <input type="number" placeholder="Guests"><br><br>
+    
+    <input id="guests" type="number" placeholder="Guests"><br><br>
+    
     <button class="btn">Send RSVP</button>
   </form>
 
@@ -144,13 +145,27 @@ iframe {
 </section>
 
 <script>
-function submitRSVP(e) {
+document.getElementById("rsvpForm").addEventListener("submit", async function(e) {
   e.preventDefault();
-  document.getElementById("rsvpMessage").innerText =
-    "Thank you! We’ve received your RSVP.";
-}
 
-// Countdown to ceremony
+  const data = {
+    name: document.getElementById("name").value,
+    attending: document.getElementById("attending").value,
+    guests: document.getElementById("guests").value
+  };
+
+  await fetch("https://script.google.com/macros/s/AKfycbzqUd3q_FuTLX-wcSdN5xkBDTM9XyzXH-W5OErZXi9tJisZy4KzXAXIhYhGZp1qSyLo/exec", {
+    method: "POST",
+    body: JSON.stringify(data)
+  });
+
+  document.getElementById("rsvpMessage").innerText =
+    "Thanks! Your RSVP has been received 💌";
+
+  document.getElementById("rsvpForm").reset();
+});
+
+// Countdown
 const weddingDate = new Date("November 20, 2026 17:00:00").getTime();
 
 setInterval(() => {
@@ -166,7 +181,6 @@ setInterval(() => {
     `${days}d ${hours}h ${minutes}m ${seconds}s`;
 }, 1000);
 </script>
-await fetch("https://script.google.com/macros/s/AKfycby383ymU9ECWc0z0u01BSREcR2cnqvfUme7Q3abNyBIy1FK_V9IOdRikCREFu-Ic-1V/exec", {
 
 </body>
 </html>
