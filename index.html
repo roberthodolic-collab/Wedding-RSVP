@@ -122,21 +122,21 @@
   <h2>RSVP</h2>
   <p class="deadline">Please RSVP by 20th August 2026</p>
 
-<form id="rsvpForm">
-  <input id="name" type="text" placeholder="Your Name" required><br>
+  <form id="rsvpForm">
+    <input id="name" type="text" placeholder="Your Name" required><br>
 
-  <select id="attending" required>
-    <option value="">Will you attend?</option>
-    <option>Joyfully Accept</option>
-    <option>Regretfully Decline</option>
-  </select><br>
+    <select id="attending" required>
+      <option value="">Will you attend?</option>
+      <option>Joyfully Accept</option>
+      <option>Regretfully Decline</option>
+    </select><br>
 
-  <input id="guests" type="number" placeholder="Guests"><br><br>
+    <input id="dietary" type="text" placeholder="Dietary requirements (optional)"><br><br>
 
-  <button class="btn" type="submit">Send RSVP</button>
-</form>
+    <button class="btn" type="submit">Send RSVP</button>
+  </form>
 
-<p id="rsvpMessage"></p>
+  <p id="rsvpMessage"></p>
 </section>
 
 <section>
@@ -151,7 +151,7 @@ document.getElementById("rsvpForm").addEventListener("submit", async function(e)
   const data = {
     name: document.getElementById("name").value,
     attending: document.getElementById("attending").value,
-    guests: document.getElementById("guests").value
+    dietary: document.getElementById("dietary").value
   };
 
   try {
@@ -176,7 +176,6 @@ document.getElementById("rsvpForm").addEventListener("submit", async function(e)
     console.error(error);
   }
 });
-</script>
 
 // Countdown
 const weddingDate = new Date("November 20, 2026 17:00:00").getTime();
@@ -186,9 +185,9 @@ setInterval(() => {
   const distance = weddingDate - now;
 
   const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((distance % (1000*60*60*24))/(1000*60*60));
-  const minutes = Math.floor((distance % (1000*60*60))/(1000*60));
-  const seconds = Math.floor((distance % (1000*60))/1000);
+  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
   document.getElementById("countdown").innerHTML =
     `${days}d ${hours}h ${minutes}m ${seconds}s`;
