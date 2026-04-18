@@ -6,15 +6,15 @@
   <title>Jessica & Robert's Wedding RSVP</title>
   <style>
     :root {
-      --bg: #f2e6d8;
-      --paper: #fbf5ee;
-      --text: #3b2a1e;
-      --muted: #8a6f58;
-      --accent: #a2673f;
-      --accent-dark: #7c4a2c;
-      --border: #e0cbb7;
+      --bg: #f5efe6;
+      --paper: #fffaf5;
+      --text: #4a3f35;
+      --muted: #7a6a5a;
+      --accent: #8b5e3c;
+      --accent-dark: #70492d;
+      --border: #d7c6b5;
       --white: #ffffff;
-      --shadow: 0 10px 25px rgba(59, 42, 30, 0.18);
+      --shadow: 0 10px 30px rgba(74, 63, 53, 0.12);
     }
 
     * {
@@ -49,9 +49,8 @@
     }
 
     .hero p {
-      max-width: 620px;
-      margin: 0 auto 8px;
-      font-size: 0.95rem;
+      margin: 14px 0 0;
+      font-size: 1.1rem;
     }
 
     #countdown {
@@ -69,15 +68,15 @@
 
     section {
       background: var(--paper);
-      margin: 16px 0;
-      padding: 24px 18px;
-      border-radius: 14px;
+      margin: 22px 0;
+      padding: 34px 22px;
+      border-radius: 18px;
       box-shadow: var(--shadow);
     }
 
     h2 {
       margin-top: 0;
-      font-size: 1.6rem;
+      font-size: 2rem;
     }
 
     p {
@@ -89,15 +88,13 @@
       appearance: none;
       background: var(--accent);
       color: var(--white);
-      padding: 12px 22px;
+      padding: 14px 26px;
       border: none;
-      border-radius: 8px;
+      border-radius: 999px;
       text-decoration: none;
       display: inline-block;
       cursor: pointer;
-      font-size: 0.95rem;
-      letter-spacing: 1px;
-      text-transform: uppercase;
+      font-size: 1rem;
       transition: transform 0.2s ease, background 0.2s ease;
     }
 
@@ -228,12 +225,13 @@
     <section>
       <h2>Our Story</h2>
       <p>
-        In the quiet countryside, our story took root and slowly grew into something beautiful. Surrounded by nature, laughter, and a little bit of magic, we found our forever — and we can’t wait to share this day with you.
+        From the moment we met, something just clicked. We feel so lucky to have found each
+        other, and even luckier to celebrate this next chapter with the people we love most.
       </p>
     </section>
 
     <section>
-      <h2>The Celebration</h2>
+      <h2>Wedding Timeline</h2>
       <div class="timeline">
         <div class="timeline-item"><strong>4:30 PM</strong> Guest Arrival</div>
         <div class="timeline-item"><strong>5:00 PM</strong> Ceremony</div>
@@ -243,7 +241,7 @@
     </section>
 
     <section>
-      <h2>The Venue</h2>
+      <h2>Location</h2>
       <p>Barn &amp; Co. Balnarring</p>
       <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Barn+%26+Co+Balnarring" target="_blank" rel="noopener noreferrer">Get Directions</a>
       <div class="map-wrap">
@@ -259,7 +257,7 @@
 
     <section id="rsvp">
       <h2>RSVP</h2>
-      <p class="deadline">Please let us know if you can join us by 20 August 2026</p>
+      <p class="deadline">Please RSVP by 20 August 2026</p>
 
       <form id="rsvpForm">
         <div class="field">
@@ -277,11 +275,6 @@
         </div>
 
         <div class="field">
-          <label for="guests">Number of guests</label>
-          <input name="guests" id="guests" type="number" min="0" max="5" placeholder="e.g. 1" required />
-        </div>
-
-        <div class="field">
           <label for="dietary">Dietary requirements</label>
           <textarea name="dietary" id="dietary" placeholder="Please list any dietary requirements or allergies"></textarea>
         </div>
@@ -294,18 +287,18 @@
     </section>
 
     <section>
-      <h2>Gifts & Registry</h2>
+      <h2>Registry</h2>
       <a class="btn" href="#">View Registry</a>
       <p class="registry-note">Replace this link with your registry URL when you're ready.</p>
     </section>
   </main>
 
   <footer>
-    With full hearts, we look forward to celebrating this special day with you.
+    We can't wait to celebrate with you.
   </footer>
 
   <script>
-    const SCRIPT_URL = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx88HW16GYRH0I9-sMACQ-x_WYp9rE3qE-pvuAQamrw/dev";
 
     const form = document.getElementById("rsvpForm");
     const message = document.getElementById("rsvpMessage");
@@ -318,11 +311,10 @@
       const formData = {
         name: document.getElementById("name").value.trim(),
         attending: document.getElementById("attending").value,
-        guests: document.getElementById("guests").value,
         dietary: document.getElementById("dietary").value.trim()
       };
 
-      if (!SCRIPT_URL || SCRIPT_URL.includes("https://script.google.com/macros/s/AKfycbxHiOr8JYryubch3y8nUAyuVgsUMPz2mSwlNzCPm0sxS9xxEHAClwKMhEUnRjOQgTER7Q/exec")) {
+      if (!SCRIPT_URL || SCRIPT_URL.includes("PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE")) {
         message.textContent = "Add your Google Apps Script Web App URL in the code before using the RSVP form.";
         message.style.color = "#8b0000";
         return;
