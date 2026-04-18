@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jessica & Robert's Wedding</title>
   <style>
     body {
-      font-family: 'Georgia', serif;
+      font-family: Georgia, serif;
       margin: 0;
       background: #f5efe6;
       color: #4a3f35;
@@ -14,7 +15,7 @@
 
     header {
       background: linear-gradient(rgba(62,47,35,0.6), rgba(62,47,35,0.6)),
-                  url('https://images-cdn.easyweddings.com.au/s3/prod-ew-image-global-v2/release/ImageUploader/Barn--co-24523-H1947990-2011080527.png?quality=80&format=jpg&mode=crop&autorotate=true&width=1320&height=412');
+                  url('https://images.unsplash.com/photo-1506744038136-46273834b3fb');
       background-size: cover;
       background-position: center;
       color: white;
@@ -41,14 +42,17 @@
       margin-top: 15px;
       border: none;
       cursor: pointer;
+      font-size: 16px;
     }
 
     input, select {
       padding: 10px;
       margin: 8px;
       width: 260px;
+      max-width: 90%;
       border-radius: 6px;
       border: 1px solid #cbb8a4;
+      font-size: 15px;
     }
 
     .deadline {
@@ -72,12 +76,19 @@
       text-align: left;
     }
 
-    iframe {
+    iframe.map {
       border-radius: 10px;
+      border: 0;
     }
 
     #hidden_iframe {
       display: none;
+    }
+
+    #rsvpMessage {
+      margin-top: 14px;
+      font-weight: bold;
+      color: #8b5e3c;
     }
   </style>
 </head>
@@ -115,6 +126,7 @@
   <br><br>
 
   <iframe
+    class="map"
     src="https://www.google.com/maps?q=Barn+%26+Co+Balnarring&output=embed"
     width="90%"
     height="300">
@@ -129,19 +141,19 @@
 
   <form
     id="rsvpForm"
-    action="https://script.google.com/macros/s/AKfycbw_RsLE4IEdugjPPsz4HJzEjPyIRGvudtVxkiHtjOz3JXwXCQG_2BKTDDVYEzEx8gCt/exec"
+    action="PASTE_YOUR_GOOGLE_SCRIPT_URL_HERE"
     method="POST"
     target="hidden_iframe"
   >
-    <input name="name" id="name" type="text" placeholder="Your Name" required><br>
+    <input name="name" type="text" placeholder="Your Name" required><br>
 
-    <select name="attending" id="attending" required>
+    <select name="attending" required>
       <option value="">Will you attend?</option>
       <option value="Joyfully Accept">Joyfully Accept</option>
       <option value="Regretfully Decline">Regretfully Decline</option>
     </select><br>
 
-    <input name="dietary" id="dietary" type="text" placeholder="Dietary requirements (optional)"><br><br>
+    <input name="dietary" type="text" placeholder="Dietary requirements (optional)"><br><br>
 
     <button class="btn" type="submit">Send RSVP</button>
   </form>
@@ -155,28 +167,35 @@
 </section>
 
 <script>
-document.getElementById("rsvpForm").addEventListener("submit", function() {
-  document.getElementById("rsvpMessage").innerText = "Thanks! Your RSVP has been received 💌";
-  setTimeout(() => {
-    document.getElementById("rsvpForm").reset();
-  }, 500);
-});
+  const form = document.getElementById("rsvpForm");
+  const message = document.getElementById("rsvpMessage");
 
-// Countdown
-const weddingDate = new Date("November 20, 2026 17:00:00").getTime();
+  form.addEventListener("submit", function () {
+    message.innerText = "Thanks! Your RSVP has been received 💌";
+    setTimeout(() => {
+      form.reset();
+    }, 500);
+  });
 
-setInterval(() => {
-  const now = new Date().getTime();
-  const distance = weddingDate - now;
+  const weddingDate = new Date("November 20, 2026 17:00:00").getTime();
 
-  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  setInterval(() => {
+    const now = new Date().getTime();
+    const distance = weddingDate - now;
 
-  document.getElementById("countdown").innerHTML =
-    `${days}d ${hours}h ${minutes}m ${seconds}s`;
-}, 1000);
+    if (distance < 0) {
+      document.getElementById("countdown").innerHTML = "It’s wedding time!";
+      return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("countdown").innerHTML =
+      `${days}d ${hours}h ${minutes}m ${seconds}s`;
+  }, 1000);
 </script>
 
 </body>
