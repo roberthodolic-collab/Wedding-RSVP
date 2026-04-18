@@ -14,7 +14,7 @@
 
     header {
       background: linear-gradient(rgba(62,47,35,0.6), rgba(62,47,35,0.6)),
-                  url('https://images.unsplash.com/photo-1506744038136-46273834b3fb');
+                  url('https://images-cdn.easyweddings.com.au/s3/prod-ew-image-global-v2/release/ImageUploader/Barn--co-24523-H1947990-2011080527.png?quality=80&format=jpg&mode=crop&autorotate=true&width=1320&height=412');
       background-size: cover;
       background-position: center;
       color: white;
@@ -75,9 +75,12 @@
     iframe {
       border-radius: 10px;
     }
+
+    #hidden_iframe {
+      display: none;
+    }
   </style>
 </head>
-
 <body>
 
 <header>
@@ -122,16 +125,23 @@
   <h2>RSVP</h2>
   <p class="deadline">Please RSVP by 20th August 2026</p>
 
-  <form id="rsvpForm">
-    <input id="name" type="text" placeholder="Your Name" required><br>
+  <iframe name="hidden_iframe" id="hidden_iframe"></iframe>
 
-    <select id="attending" required>
+  <form
+    id="rsvpForm"
+    action="https://script.google.com/macros/s/AKfycbzqUd3q_FuTLX-wcSdN5xkBDTM9XyzXH-W5OErZXi9tJisZy4KzXAXIhYhGZp1qSyLo/exec"
+    method="POST"
+    target="hidden_iframe"
+  >
+    <input name="name" id="name" type="text" placeholder="Your Name" required><br>
+
+    <select name="attending" id="attending" required>
       <option value="">Will you attend?</option>
-      <option>Joyfully Accept</option>
-      <option>Regretfully Decline</option>
+      <option value="Joyfully Accept">Joyfully Accept</option>
+      <option value="Regretfully Decline">Regretfully Decline</option>
     </select><br>
 
-    <input id="dietary" type="text" placeholder="Dietary requirements (optional)"><br><br>
+    <input name="dietary" id="dietary" type="text" placeholder="Dietary requirements (optional)"><br><br>
 
     <button class="btn" type="submit">Send RSVP</button>
   </form>
@@ -145,30 +155,11 @@
 </section>
 
 <script>
-document.getElementById("rsvpForm").addEventListener("submit", async function(e) {
-  e.preventDefault();
-
-  const data = {
-    name: document.getElementById("name").value,
-    attending: document.getElementById("attending").value,
-    dietary: document.getElementById("dietary").value
-  };
-
-  try {
-    await fetch("https://script.google.com/macros/s/AKfycbw_RsLE4IEdugjPPsz4HJzEjPyIRGvudtVxkiHtjOz3JXwXCQG_2BKTDDVYEzEx8gCt/exec", {
-      method: "POST",
-      mode: "no-cors",
-      body: JSON.stringify(data)
-    });
-
-    document.getElementById("rsvpMessage").innerText =
-      "Thanks! Your RSVP has been received 💌";
+document.getElementById("rsvpForm").addEventListener("submit", function() {
+  document.getElementById("rsvpMessage").innerText = "Thanks! Your RSVP has been received 💌";
+  setTimeout(() => {
     document.getElementById("rsvpForm").reset();
-  } catch (error) {
-    document.getElementById("rsvpMessage").innerText =
-      "Sorry, there was a problem sending your RSVP.";
-    console.error(error);
-  }
+  }, 500);
 });
 
 // Countdown
