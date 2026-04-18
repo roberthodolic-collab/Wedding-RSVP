@@ -122,21 +122,21 @@
   <h2>RSVP</h2>
   <p class="deadline">Please RSVP by 20th August 2026</p>
 
-  <form id="rsvpForm">
-    <input id="name" type="text" placeholder="Your Name" required><br>
-    
-    <select id="attending" required>
-      <option value="">Will you attend?</option>
-      <option>Joyfully Accept</option>
-      <option>Regretfully Decline</option>
-    </select><br>
-    
-    <input id="guests" type="number" placeholder="Guests"><br><br>
-    
-    <button class="btn">Send RSVP</button>
-  </form>
+<form id="rsvpForm">
+  <input id="name" type="text" placeholder="Your Name" required><br>
 
-  <p id="rsvpMessage"></p>
+  <select id="attending" required>
+    <option value="">Will you attend?</option>
+    <option>Joyfully Accept</option>
+    <option>Regretfully Decline</option>
+  </select><br>
+
+  <input id="guests" type="number" placeholder="Guests"><br><br>
+
+  <button class="btn" type="submit">Send RSVP</button>
+</form>
+
+<p id="rsvpMessage"></p>
 </section>
 
 <section>
@@ -154,16 +154,29 @@ document.getElementById("rsvpForm").addEventListener("submit", async function(e)
     guests: document.getElementById("guests").value
   };
 
-  await fetch("https://script.google.com/macros/s/AKfycbzqUd3q_FuTLX-wcSdN5xkBDTM9XyzXH-W5OErZXi9tJisZy4KzXAXIhYhGZp1qSyLo/exec", {
-    method: "POST",
-    body: JSON.stringify(data)
-  });
+  try {
+    const response = await fetch("https://script.google.com/macros/s/AKfycbzqUd3q_FuTLX-wcSdN5xkBDTM9XyzXH-W5OErZXi9tJisZy4KzXAXIhYhGZp1qSyLo/exec", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    });
 
-  document.getElementById("rsvpMessage").innerText =
-    "Thanks! Your RSVP has been received 💌";
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
 
-  document.getElementById("rsvpForm").reset();
+    document.getElementById("rsvpMessage").innerText =
+      "Thanks! Your RSVP has been received 💌";
+    document.getElementById("rsvpForm").reset();
+  } catch (error) {
+    document.getElementById("rsvpMessage").innerText =
+      "Sorry, there was a problem sending your RSVP.";
+    console.error(error);
+  }
 });
+</script>
 
 // Countdown
 const weddingDate = new Date("November 20, 2026 17:00:00").getTime();
