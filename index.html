@@ -66,13 +66,13 @@
 
     section {
       position: relative;
-      background: var(--paper);
+      background: transparent;
       margin: 14px 0;
-      padding: 20px 16px;
-      border-radius: 12px;
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      border-top: 3px solid var(--accent-soft);
+      padding: 10px 0;
+      border-radius: 0;
+      box-shadow: none;
+      overflow: visible;
+      border-top: none;
     }
 
     /* Pampas decorations */
@@ -155,15 +155,12 @@
 
     input, select, textarea {
       width: 100%;
-      padding: 12px;
+      padding: 10px;
       margin-bottom: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.25);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: #fffdf9;
       color: var(--text);
-      text-align: center;
     }
 
     input::placeholder,
