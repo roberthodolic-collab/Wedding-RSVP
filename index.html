@@ -75,6 +75,11 @@
       border-top: none;
     }
 
+    /* Bring last section (Registry) closer to footer */
+    main section:last-of-type {
+      margin-bottom: 0;
+    }
+
     section::before {
       content: "";
       position: absolute;
@@ -158,7 +163,13 @@
       border-radius: 6px;
       background: #fffdf9;
       color: var(--text);
-      text-align: center; /* CENTER TEXT INSIDE BOXES */
+      text-align: center;
+    }
+
+    /* THIS FIX CENTERS DROPDOWN TEXT PROPERLY */
+    select {
+      text-align: center;
+      text-align-last: center;
     }
 
     input::placeholder,
@@ -174,7 +185,7 @@
     }
 
     footer {
-      margin-top: 30px;
+      margin-top: 10px;
       padding-bottom: 40px;
       color: var(--muted);
       font-size: 1.05rem;
@@ -255,7 +266,6 @@
 
     <section>
       <a class="btn" href="#">View Registry</a>
-      <p class="registry-note">Replace this link with your registry URL when you're ready.</p>
     </section>
   </main>
 
