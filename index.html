@@ -29,7 +29,7 @@
       font-family: 'Open Sans', sans-serif;
       background:
         linear-gradient(rgba(244,233,220,0.6), rgba(244,233,220,0.6)),
-        url('pampas.jpg'); /* <-- ADD YOUR IMAGE FILE HERE */
+        url('pampas.jpg');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -75,7 +75,6 @@
       border-top: none;
     }
 
-    /* Pampas decorations */
     section::before {
       content: "";
       position: absolute;
@@ -118,7 +117,7 @@
       text-transform: uppercase;
       border: none;
       display: inline-block;
-      margin-top: 12px; /* spacing from text above */
+      margin-top: 12px;
     }
 
     .btn:hover { 
@@ -134,24 +133,18 @@
       margin: 8px 0;
     }
 
-    .map-wrap {
-      margin-top: 16px;
-    }
-
-    iframe { width: 100%; border: 0; }
-
     form { max-width: 480px; margin: auto; text-align: center; }
 
-#rsvp {
-  text-align: center;
-}
+    #rsvp {
+      text-align: center;
+    }
 
-#rsvp .field,
-#rsvp label,
-#rsvp .deadline,
-#rsvp #rsvpMessage {
-  text-align: center;
-}
+    #rsvp .field,
+    #rsvp label,
+    #rsvp .deadline,
+    #rsvp #rsvpMessage {
+      text-align: center;
+    }
 
     input, select, textarea {
       width: 100%;
@@ -172,12 +165,6 @@
       outline: none;
       border-color: var(--accent);
       box-shadow: 0 0 0 2px rgba(196, 154, 108, 0.25);
-    }
-
-    input:focus, select:focus, textarea:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 2px rgba(196, 154, 108, 0.2);
     }
 
     footer {
@@ -220,15 +207,6 @@
       <h2>Location</h2>
       <p>Barn &amp; Co. Balnarring</p>
       <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Barn+%26+Co+Balnarring" target="_blank" rel="noopener noreferrer">Get Directions</a>
-      <div class="map-wrap">
-        <iframe
-          src="https://www.google.com/maps?q=Barn+%26+Co+Balnarring&output=embed"
-          height="320"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          title="Barn & Co. Balnarring map">
-        </iframe>
-      </div>
     </section>
 
     <section id="rsvp">
@@ -288,6 +266,12 @@
     const countdown = document.getElementById("countdown");
 
     form.addEventListener("submit", () => {
+      const dietaryField = document.getElementById("dietary");
+
+      if (dietaryField.value.trim() === "") {
+        dietaryField.value = "None";
+      }
+
       message.textContent = "Sending your RSVP...";
       message.style.color = "#7a6a5a";
 
