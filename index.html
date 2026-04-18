@@ -259,7 +259,9 @@
       <h2>RSVP</h2>
       <p class="deadline">Please RSVP by 20 August 2026</p>
 
-      <form id="rsvpForm">
+      <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
+      <form id="rsvpForm" action="https://script.google.com/macros/s/AKfycbxHiOr8JYryubch3y8nUAyuVgsUMPz2mSwlNzCPm0sxS9xxEHAClwKMhEUnRjOQgTER7Q/exec" method="POST" target="hidden_iframe">
         <div class="field">
           <label for="name">Your Name</label>
           <input name="name" id="name" type="text" placeholder="Enter your full name" required />
@@ -272,6 +274,11 @@
             <option value="Joyfully Accept">Joyfully Accept</option>
             <option value="Regretfully Decline">Regretfully Decline</option>
           </select>
+        </div>
+
+        <div class="field">
+          <label for="guests">Number of guests</label>
+          <input name="guests" id="guests" type="number" min="0" max="5" placeholder="e.g. 1" required />
         </div>
 
         <div class="field">
@@ -298,54 +305,20 @@
   </footer>
 
   <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx88HW16GYRH0I9-sMACQ-x_WYp9rE3qE-pvuAQamrw/dev";
-
     const form = document.getElementById("rsvpForm");
     const message = document.getElementById("rsvpMessage");
     const weddingDate = new Date("2026-11-20T17:00:00").getTime();
     const countdown = document.getElementById("countdown");
 
-    form.addEventListener("submit", async (event) => {
-      event.preventDefault();
-
-      const formData = {
-        name: document.getElementById("name").value.trim(),
-        attending: document.getElementById("attending").value,
-        dietary: document.getElementById("dietary").value.trim()
-      };
-
-      if (!SCRIPT_URL || SCRIPT_URL.includes("PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE")) {
-        message.textContent = "Add your Google Apps Script Web App URL in the code before using the RSVP form.";
-        message.style.color = "#8b0000";
-        return;
-      }
-
+    form.addEventListener("submit", () => {
       message.textContent = "Sending your RSVP...";
       message.style.color = "#7a6a5a";
 
-      try {
-        const response = await fetch(SCRIPT_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "text/plain;charset=utf-8"
-          },
-          body: JSON.stringify(formData)
-        });
-
-        const resultText = await response.text();
-
-        if (!response.ok) {
-          throw new Error(resultText || "Form submission failed.");
-        }
-
+      setTimeout(() => {
         message.textContent = "Thanks! Your RSVP has been received 💌";
         message.style.color = "#2e6b3a";
         form.reset();
-      } catch (error) {
-        message.textContent = "Sorry, there was a problem sending your RSVP. Please try again.";
-        message.style.color = "#8b0000";
-        console.error("RSVP submission error:", error);
-      }
+      }, 800);
     });
 
     function updateCountdown() {
