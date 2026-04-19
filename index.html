@@ -135,12 +135,23 @@
 
     .timeline { text-align: left; max-width: 500px; margin: auto; }
 
-    .timeline-item {
-      background: transparent;
-      border-left: 3px solid var(--accent);
-      padding: 6px;
-      margin: 4px 0;
-    }
+   .timeline-item {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  align-items: center;
+  border-left: 3px solid var(--accent);
+  padding: 6px 10px;
+  margin: 4px 0;
+}
+    .time {
+  font-weight: bold;
+  text-align: right;
+  padding-right: 12px;
+}
+
+.event {
+  text-align: left;
+}
 
     form { max-width: 480px; margin: auto; text-align: center; }
 
@@ -209,15 +220,35 @@
     </section>
 
     <section>
-      <h2>Wedding Timeline</h2>
-      <div class="timeline">
-        <div class="timeline-item"><strong>4:30 PM</strong> Guest Arrival</div>
-        <div class="timeline-item"><strong>5:00 PM</strong> Ceremony</div>
-        <div class="timeline-item"><strong>6:00 PM</strong> Canapé Hour</div>
-        <div class="timeline-item"><strong>7:00 PM</strong> Reception (Cocktail Style)</div>
-        <div class="timeline-item"><strong>10:00 PM</strong> Conclusion</div>
-      </div>
-    </section>
+     <section>
+  <h2>Wedding Timeline</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <span class="time">4:30 PM</span>
+      <span class="event">Guest Arrival</span>
+    </div>
+
+    <div class="timeline-item">
+      <span class="time">5:00 PM</span>
+      <span class="event">Ceremony</span>
+    </div>
+
+    <div class="timeline-item">
+      <span class="time">6:00 PM</span>
+      <span class="event">Canapé Hour</span>
+    </div>
+
+    <div class="timeline-item">
+      <span class="time">7:00 PM</span>
+      <span class="event">Reception (Cocktail Style)</span>
+    </div>
+
+    <div class="timeline-item">
+      <span class="time">10:00 PM</span>
+      <span class="event">Conclusion</span>
+    </div>
+  </div>
+</section>
 
     <section>
       <h2>Location</h2>
