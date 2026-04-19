@@ -277,23 +277,17 @@ footer {
   <h2>Upload Photos</h2>
   <p>Share your favourite moments from our day 📸</p>
 
-  <form id="photoForm">
-    <input
-      type="file"
-      id="photoFiles"
-      name="photos"
-      accept="image/*"
-      multiple
-      required
-      hidden
-    />
+  <input
+    type="file"
+    id="photoFiles"
+    accept="image/*"
+    multiple
+    hidden
+  />
 
-    <button type="button" class="btn" id="choosePhotosBtn">Choose Photos</button>
-    <button type="submit" class="btn">Upload Photos</button>
+  <button class="btn" id="uploadBtn">Upload Photos</button>
 
-    <p id="photoSelected" style="margin-top:10px;"></p>
-    <p id="photoMessage"></p>
-  </form>
+  <p id="photoMessage"></p>
 </section>
   </main>
 
