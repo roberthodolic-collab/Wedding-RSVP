@@ -260,14 +260,28 @@
         </div>
       </form>
     </section>
-<section>
-  <a class="btn" href="https://drive.google.com/drive/folders/1F4UawTWqdXeTKHAqZ3zJUG9CW5I4Sb_y">
-    Upload Photos
-  </a>
+<section id="photos">
+  <h2>Upload Photos</h2>
+  <p>Share your favourite moments from our day 📸</p>
+
+  <form id="photoForm">
+    <input
+      type="file"
+      id="photoFiles"
+      name="photos"
+      accept="image/*"
+      multiple
+      required
+      hidden
+    />
+
+    <button type="button" class="btn" id="choosePhotosBtn">Choose Photos</button>
+    <button type="submit" class="btn">Upload Photos</button>
+
+    <p id="photoSelected" style="margin-top:10px;"></p>
+    <p id="photoMessage"></p>
+  </form>
 </section>
-    <section>
-      <a class="btn" href="#">View Registry</a>
-    </section>
   </main>
 
   <footer>
@@ -332,5 +346,80 @@
     updateCountdown();
     setInterval(updateCountdown, 1000);
   </script>
+  <script>
+  const photoForm = document.getElementById("photoForm");
+  const photoFiles = document.getElementById("photoFiles");
+  const choosePhotosBtn = document.getElementById("choosePhotosBtn");
+  const photoSelected = document.getElementById("photoSelected");
+  const photoMessage = document.getElementById("photoMessage");
+
+  const PHOTO_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwykYf2VHueSG_Kve-jtncSTe1od_ic04bL8jNRN6xheW1oqVHnmuTd32QY1bvgszAixw/exec";
+
+  choosePhotosBtn.addEventListener("click", () => {
+    photoFiles.click();
+  });
+
+  photoFiles.addEventListener("change", () => {
+    const count = photoFiles.files.length;
+    photoSelected.textContent = count > 0 ? `${count} photo(s) selected` : "";
+  });
+
+  photoForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    if (!photoFiles.files.length) {
+      photoMessage.textContent = "Please choose at least one photo.";
+      photoMessage.style.color = "#b00020";
+      return;
+    }
+
+    photoMessage.textContent = "Uploading photos...";
+    photoMessage.style.color = "#7a6a5a";
+
+    try {
+      const files = Array.from(photoFiles.files);
+
+      for (const file of files) {
+        const base64 = await fileToBase64(file);
+
+        await fetch(PHOTO_SCRIPT_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+          },
+          body: JSON.stringify({
+            fileName: file.name,
+            mimeType: file.type,
+            data: base64
+          })
+        });
+      }
+
+      photoMessage.textContent = "Thanks! Your photos have been uploaded 💌";
+      photoMessage.style.color = "#2e6b3a";
+      photoForm.reset();
+      photoSelected.textContent = "";
+    } catch (error) {
+      console.error(error);
+      photoMessage.textContent = "Sorry, there was a problem uploading your photos.";
+      photoMessage.style.color = "#b00020";
+    }
+  });
+
+  function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        const result = reader.result;
+        const base64 = result.split(",")[1];
+        resolve(base64);
+      };
+
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+</script>
 </body>
 </html>
