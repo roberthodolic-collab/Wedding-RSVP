@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jessica & Robert's Wedding RSVP</title>
+
   <style>
     :root {
       --bg: #f4e9dc;
@@ -21,7 +22,6 @@
     }
 
     * { box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -47,15 +47,22 @@
       padding: 90px 20px 80px;
     }
 
-  .hero h1 {
-  font-family: 'Playfair Display', serif;
-  font-weight: 600;
-  letter-spacing: 2px;
-}
+    .hero h1 {
+      margin: 0;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.2rem, 6vw, 4.8rem);
+      letter-spacing: 2px;
+      font-weight: 600;
+    }
 
-    .hero p { margin-top: 10px; }
+    .hero p {
+      margin-top: 10px;
+    }
 
-    #countdown { margin-top: 20px; font-weight: bold; }
+    #countdown {
+      margin-top: 20px;
+      font-weight: bold;
+    }
 
     main {
       max-width: 900px;
@@ -114,12 +121,16 @@
       border-radius: 8px;
     }
 
-    p { max-width: 600px; margin: auto; font-size: 0.95rem; }
+    p {
+      max-width: 600px;
+      margin: auto;
+      font-size: 0.95rem;
+    }
 
     .btn {
       background: linear-gradient(135deg, var(--accent), var(--accent-rose));
       color: white;
-      padding: 10px 18px;
+      padding: 10px 10px;
       border-radius: 6px;
       text-decoration: none;
       font-size: 0.9rem;
@@ -127,13 +138,18 @@
       border: none;
       display: inline-block;
       margin-top: 12px;
+      cursor: pointer;
     }
 
-    .btn:hover { 
+    .btn:hover {
       background: linear-gradient(135deg, var(--accent-dark), var(--accent));
     }
 
-    .timeline { text-align: left; max-width: 500px; margin: auto; }
+    .timeline {
+      text-align: left;
+      max-width: 500px;
+      margin: auto;
+    }
 
     .timeline-item {
       background: transparent;
@@ -142,7 +158,11 @@
       margin: 4px 0;
     }
 
-    form { max-width: 480px; margin: auto; text-align: center; }
+    form {
+      max-width: 480px;
+      margin: auto;
+      text-align: center;
+    }
 
     #rsvp {
       text-align: center;
@@ -183,46 +203,38 @@
       box-shadow: 0 0 0 2px rgba(196, 154, 108, 0.25);
     }
 
+    #photoMessage {
+      margin-top: 10px;
+    }
+
+    #uploadProgressWrap {
+      width: 100%;
+      max-width: 360px;
+      height: 10px;
+      margin: 14px auto 0;
+      background: rgba(255, 255, 255, 0.65);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      overflow: hidden;
+      display: none;
+    }
+
+    #uploadProgressBar {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-rose));
+      transition: width 0.25s ease;
+    }
+
     footer {
       margin-top: 10px;
       padding-bottom: 40px;
       color: #000000;
       font-size: 1.05rem;
     }
-footer {
-  margin-top: 10px;
-  padding-bottom: 40px;
-  color: #000000;
-  font-size: 1.05rem;
-}
-#photos .btn {
-  margin: 8px 6px 0;
-}
-
-#photoMessage {
-  margin-top: 10px;
-}
-
-#uploadProgressWrap {
-  width: 100%;
-  max-width: 360px;
-  height: 10px;
-  margin: 14px auto 0;
-  background: rgba(255, 255, 255, 0.65);
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  overflow: hidden;
-  display: none;
-}
-
-#uploadProgressBar {
-  width: 0%;
-  height: 100%;
-  background: linear-gradient(135deg, var(--accent), var(--accent-rose));
-  transition: width 0.25s ease;
-}
   </style>
 </head>
+
 <body>
   <header class="hero">
     <h1>Jessica &amp; Robert</h1>
@@ -291,26 +303,31 @@ footer {
         </div>
       </form>
     </section>
-<section id="photos">
-  <h2>Upload Photos</h2>
-  <p>Share your favourite moments from our day 📸</p>
 
-  <input
-    type="file"
-    id="photoFiles"
-    accept="image/*"
-    multiple
-    hidden
-  />
+    <section id="photos">
+      <h2>Upload Photos</h2>
+      <p>Share your favourite moments from our day 📸</p>
 
-  <button class="btn" id="uploadBtn" type="button">Upload Photos</button>
+      <input
+        type="file"
+        id="photoFiles"
+        accept="image/*"
+        multiple
+        hidden
+      />
 
-  <div id="uploadProgressWrap">
-    <div id="uploadProgressBar"></div>
-  </div>
+      <button class="btn" id="uploadBtn" type="button">Upload Photos</button>
 
-  <p id="photoMessage"></p>
-</section>
+      <div id="uploadProgressWrap">
+        <div id="uploadProgressBar"></div>
+      </div>
+
+      <p id="photoMessage"></p>
+    </section>
+
+    <section>
+      <a class="btn" href="#">View Registry</a>
+    </section>
   </main>
 
   <footer>
@@ -354,115 +371,7 @@ footer {
         console.error(error);
       }
     });
-    <script>
-const uploadBtn = document.getElementById("uploadBtn");
-const photoFiles = document.getElementById("photoFiles");
-const photoMessage = document.getElementById("photoMessage");
-const uploadProgressWrap = document.getElementById("uploadProgressWrap");
-const uploadProgressBar = document.getElementById("uploadProgressBar");
 
-const PHOTO_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw7nlUtsKthBqJRRQu85oj9qEbEjQpcBHfO7VYrOtWBojPdMa2Bc-rGsU2HHCNJ7hgJ/exec";
-
-uploadBtn.addEventListener("click", () => {
-  photoFiles.click();
-});
-
-photoFiles.addEventListener("change", async () => {
-  if (!photoFiles.files.length) return;
-
-  uploadProgressWrap.style.display = "block";
-  uploadProgressBar.style.width = "0%";
-  photoMessage.textContent = "Preparing upload...";
-  photoMessage.style.color = "#7a6a5a";
-
-  try {
-    const files = Array.from(photoFiles.files);
-
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-
-      photoMessage.textContent = `Uploading ${i + 1} of ${files.length}...`;
-
-      const compressed = await compressImage(file, 1800, 0.8);
-
-      await fetch(PHOTO_SCRIPT_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "text/plain;charset=utf-8"
-        },
-        body: JSON.stringify({
-          fileName: compressed.fileName,
-          mimeType: compressed.mimeType,
-          data: compressed.base64
-        })
-      });
-
-      const percent = Math.round(((i + 1) / files.length) * 100);
-      uploadProgressBar.style.width = percent + "%";
-    }
-
-    photoMessage.textContent = "Thanks! Your photos have been uploaded 💌";
-    photoMessage.style.color = "#2e6b3a";
-    photoFiles.value = "";
-
-    setTimeout(() => {
-      uploadProgressWrap.style.display = "none";
-      uploadProgressBar.style.width = "0%";
-    }, 1200);
-
-  } catch (error) {
-    console.error(error);
-    photoMessage.textContent = "Sorry, there was a problem uploading your photos.";
-    photoMessage.style.color = "#b00020";
-    uploadProgressWrap.style.display = "none";
-    uploadProgressBar.style.width = "0%";
-  }
-});
-
-function compressImage(file, maxSize, quality) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-
-    reader.onload = () => {
-      const img = new Image();
-
-      img.onload = () => {
-        let { width, height } = img;
-
-        if (width > height && width > maxSize) {
-          height = Math.round((height * maxSize) / width);
-          width = maxSize;
-        } else if (height > maxSize) {
-          width = Math.round((width * maxSize) / height);
-          height = maxSize;
-        }
-
-        const canvas = document.createElement("canvas");
-        canvas.width = width;
-        canvas.height = height;
-
-        const ctx = canvas.getContext("2d");
-        ctx.drawImage(img, 0, 0, width, height);
-
-        const mimeType = "image/jpeg";
-        const base64 = canvas.toDataURL(mimeType, quality).split(",")[1];
-        const newFileName = file.name.replace(/\.\w+$/, "") + ".jpg";
-
-        resolve({
-          fileName: newFileName,
-          mimeType,
-          base64
-        });
-      };
-
-      img.onerror = reject;
-      img.src = reader.result;
-    };
-
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
-}
     function updateCountdown() {
       const now = Date.now();
       const distance = weddingDate - now;
@@ -484,5 +393,115 @@ function compressImage(file, maxSize, quality) {
     setInterval(updateCountdown, 1000);
   </script>
 
+  <script>
+    const uploadBtn = document.getElementById("uploadBtn");
+    const photoFiles = document.getElementById("photoFiles");
+    const photoMessage = document.getElementById("photoMessage");
+    const uploadProgressWrap = document.getElementById("uploadProgressWrap");
+    const uploadProgressBar = document.getElementById("uploadProgressBar");
+
+    const PHOTO_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw7nlUtsKthBqJRRQu85oj9qEbEjQpcBHfO7VYrOtWBojPdMa2Bc-rGsU2HHCNJ7hgJ/exec";
+
+    uploadBtn.addEventListener("click", () => {
+      photoFiles.click();
+    });
+
+    photoFiles.addEventListener("change", async () => {
+      if (!photoFiles.files.length) return;
+
+      uploadProgressWrap.style.display = "block";
+      uploadProgressBar.style.width = "0%";
+      photoMessage.textContent = "Preparing upload...";
+      photoMessage.style.color = "#7a6a5a";
+
+      try {
+        const files = Array.from(photoFiles.files);
+
+        for (let i = 0; i < files.length; i++) {
+          const file = files[i];
+
+          photoMessage.textContent = `Uploading ${i + 1} of ${files.length}...`;
+
+          const compressed = await compressImage(file, 1800, 0.8);
+
+          await fetch(PHOTO_SCRIPT_URL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "text/plain;charset=utf-8"
+            },
+            body: JSON.stringify({
+              fileName: compressed.fileName,
+              mimeType: compressed.mimeType,
+              data: compressed.base64
+            })
+          });
+
+          const percent = Math.round(((i + 1) / files.length) * 100);
+          uploadProgressBar.style.width = percent + "%";
+        }
+
+        photoMessage.textContent = "Thanks! Your photos have been uploaded 💌";
+        photoMessage.style.color = "#2e6b3a";
+        photoFiles.value = "";
+
+        setTimeout(() => {
+          uploadProgressWrap.style.display = "none";
+          uploadProgressBar.style.width = "0%";
+        }, 1200);
+
+      } catch (error) {
+        console.error(error);
+        photoMessage.textContent = "Sorry, there was a problem uploading your photos.";
+        photoMessage.style.color = "#b00020";
+        uploadProgressWrap.style.display = "none";
+        uploadProgressBar.style.width = "0%";
+      }
+    });
+
+    function compressImage(file, maxSize, quality) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+
+        reader.onload = () => {
+          const img = new Image();
+
+          img.onload = () => {
+            let { width, height } = img;
+
+            if (width > height && width > maxSize) {
+              height = Math.round((height * maxSize) / width);
+              width = maxSize;
+            } else if (height > maxSize) {
+              width = Math.round((width * maxSize) / height);
+              height = maxSize;
+            }
+
+            const canvas = document.createElement("canvas");
+            canvas.width = width;
+            canvas.height = height;
+
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, width, height);
+
+            const mimeType = "image/jpeg";
+            const base64 = canvas.toDataURL(mimeType, quality).split(",")[1];
+            const newFileName = file.name.replace(/\.\w+$/, "") + ".jpg";
+
+            resolve({
+              fileName: newFileName,
+              mimeType,
+              base64
+            });
+          };
+
+          img.onerror = reject;
+          img.src = reader.result;
+        };
+
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+  </script>
 </body>
 </html>
