@@ -127,23 +127,38 @@ O<!DOCTYPE html>
       font-size: 0.95rem;
     }
 
-    .btn {
-      background: linear-gradient(135deg, var(--accent), var(--accent-rose));
-      color: white;
-      padding: 10px 10px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      border: none;
-      display: inline-block;
-      margin-top: 12px;
-      cursor: pointer;
-    }
+   .btn {
+  background: linear-gradient(135deg, var(--accent), var(--accent-rose));
+  color: var(--white);
+  padding: 10px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 12px;
+  cursor: pointer;
+  min-width: 140px; /* keeps buttons consistent */
+  text-align: center;
+}
 
-    .btn:hover {
-      background: linear-gradient(135deg, var(--accent-dark), var(--accent));
-    }
+.btn:hover {
+  background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+}
+
+.btn:visited {
+  color: var(--white);
+}
+
+.btn:focus,
+.btn:active {
+  color: var(--white);
+  outline: none;
+}
 
     .timeline {
       text-align: left;
