@@ -305,29 +305,36 @@ O<!DOCTYPE html>
     </section>
 
     <section id="photos">
-      <h2>Upload Photos</h2>
-      <p>Share your favourite moments from our day 📸</p>
+  <h2>Upload Photos</h2>
+  <p>Share your favourite moments from our day 📸</p>
 
-      <input
-        type="file"
-        id="photoFiles"
-        accept="image/*"
-        multiple
-        hidden
-      />
+  <input
+    type="file"
+    id="photoFiles"
+    accept="image/*"
+    multiple
+    hidden
+  />
 
-      <button class="btn" id="uploadBtn" type="button">Upload Photos</button>
+  <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+    <button class="btn" id="uploadBtn" type="button">Upload Photos</button>
 
-      <div id="uploadProgressWrap">
-        <div id="uploadProgressBar"></div>
-      </div>
+    <a
+      class="btn"
+      href="https://drive.google.com/drive/folders/1F4UawTWqdXeTKHAqZ3zJUG9CW5I4Sb_y"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      View Gallery
+    </a>
+  </div>
 
-      <p id="photoMessage"></p>
-    </section>
+  <div id="uploadProgressWrap">
+    <div id="uploadProgressBar"></div>
+  </div>
 
-    <section>
-      <a class="btn" href="#">View Registry</a>
-    </section>
+  <p id="photoMessage"></p>
+</section>
   </main>
 
   <footer>
