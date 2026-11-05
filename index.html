@@ -327,17 +327,18 @@
     We can't wait to celebrate with you.
   </footer>
 
-  <script>
-    const form = document.getElementById("rsvpForm");
-    const message = document.getElementById("rsvpMessage");
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx_dmKx1980dxb6X40SkOFyG8DdFRBvBjLmsn9_YxdcXFc72elE2XxI7-6Fr5Ktf6elHw/exec";
+ <script>
+  // ---- RSVP form (only runs if the form exists on the page) ----
+  const form = document.getElementById("rsvpForm");
+  const message = document.getElementById("rsvpMessage");
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx_dmKx1980dxb6X40SkOFyG8DdFRBvBjLmsn9_YxdcXFc72elE2XxI7-6Fr5Ktf6elHw/exec";
 
-    if (form && message) {
+  if (form && message) {
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
 
       const dietaryField = document.getElementById("dietary");
-      if (dietaryField.value.trim() === "") {
+      if (dietaryField && dietaryField.value.trim() === "") {
         dietaryField.value = "None";
       }
 
@@ -346,13 +347,11 @@
 
       try {
         const formData = new FormData(form);
-
         await fetch(SCRIPT_URL, {
           method: "POST",
           body: new URLSearchParams(formData),
           mode: "no-cors"
         });
-
         message.textContent = "Thanks! Your RSVP has been received 💌";
         message.style.color = "#2e6b3a";
         form.reset();
@@ -362,17 +361,26 @@
         console.error(error);
       }
     });
+  } // <-- this closing brace was missing
 
-   const weddingDate = new Date("2026-11-20T17:00:00+11:00").getTime();
-const countdown = document.getElementById("countdown");
+  // ---- Countdown (now runs independently) ----
+  const weddingDate = new Date("2026-11-20T17:00:00+11:00").getTime(); // 5:00 PM Melbourne (AEDT)
+  const weddingDay = "2026-11-20";
+  const countdown = document.getElementById("countdown");
 
-function updateCountdown() {
-    const now = Date.now();
-    const distance = weddingDate - now;
+  function updateCountdown() {
+    const distance = weddingDate - Date.now();
 
     if (distance <= 0) {
-        countdown.textContent = "Today's the day 💍";
-        return;
+      // Compare dates in Melbourne time, so it works for guests anywhere
+      const todayMelb = new Intl.DateTimeFormat("en-CA", {
+        timeZone: "Australia/Melbourne"
+      }).format(new Date());
+
+      countdown.textContent = todayMelb === weddingDay
+        ? "Today's the day 💍"
+        : "Just married 💍";
+      return;
     }
 
     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -380,13 +388,12 @@ function updateCountdown() {
     const minutes = Math.floor((distance / (1000 * 60)) % 60);
     const seconds = Math.floor((distance / 1000) % 60);
 
-    countdown.textContent =
-        `${days} days ${hours} hours ${minutes} minutes ${seconds} seconds`;
-}
+    countdown.textContent = `${days} days ${hours} hours ${minutes} minutes ${seconds} seconds`;
+  }
 
-updateCountdown();
-setInterval(updateCountdown, 1000);
-  </script>
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
 
   <script>
     const uploadBtn = document.getElementById("uploadBtn");
