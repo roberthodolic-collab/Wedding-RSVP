@@ -330,11 +330,9 @@
   <script>
     const form = document.getElementById("rsvpForm");
     const message = document.getElementById("rsvpMessage");
-    const weddingDate = new Date("2026-11-20T17:00:00").getTime();
-    const countdown = document.getElementById("countdown");
-
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx_dmKx1980dxb6X40SkOFyG8DdFRBvBjLmsn9_YxdcXFc72elE2XxI7-6Fr5Ktf6elHw/exec";
 
+    if (form && message) {
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
 
